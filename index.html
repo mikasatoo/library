@@ -11,6 +11,49 @@
 </head>
 
 <body>
-    
+    <!-- ... -->
+
+    <!-- "Add new book" form -->
+    <form>
+        <h1>Add new book</h1>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" placeholder="Dune">
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" placeholder="Frank Herbert">
+
+        <label for="image">Link to cover image:</label>
+        <input type="url" id="image">
+
+        <label for="pages">Number of pages:</label>
+        <input type="number" id="pages" placeholder="896">
+
+        <label for="genre">Genre:</label>
+        <select name="genre">
+            <optgroup label="Fiction">
+                <option value="sci-fi-fantasy" selected>Sci-fi / fantasy</option>
+                <option value="coming-of-age">Coming of age</option>
+                <!-- * Add more fiction genres -->
+            </optgroup>
+            <optgroup label="Non-fiction">
+                <option value="biography">Biography</option>
+                <option value="history">History</option>
+                <!-- * Add more non-fiction genres -->
+            </optgroup>
+        </select>
+
+        <label for="read">I have already read this book</label>
+        <input type="checkbox" id="read" name="read">
+
+        <label for="rating">Rating:</label>
+        <div class="slider-container">
+            <!-- * Add labels to each slider range value -->
+            <input type="range" min="0" max="5" value="3" step = "1" class="slider" id="rating">
+        </div>
+
+        <button type="button">Add book</button>
+        <button type="reset">Reset info</button>
+    </form>
 </body>
 </html>
