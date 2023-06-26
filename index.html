@@ -17,14 +17,15 @@
     <form>
         <h1>Add new book</h1>
 
-        <label for="title">Title:</label>
-        <input type="text" id="title" placeholder="Dune">
+        <label for="title">*Title:</label>
+        <input type="text" id="title" placeholder="Dune" required>
 
         <label for="author">Author:</label>
         <input type="text" id="author" placeholder="Frank Herbert">
 
-        <label for="image">Link to cover image:</label>
-        <input type="url" id="image">
+        <label for="image-url">Link to cover image:</label>
+        <input type="url" id="image-url" placeholder="https://m.media-amazon.com/images/I/81ym3QUd3KL._AC_UF1000,1000_QL80_.jpg" 
+            pattern="https://.*" title="Please enter a valid URL - e.g. https://m.media-amazon.com/images/I/81ym3QUd3KL._AC_UF1000,1000_QL80_.jpg">
 
         <label for="pages">Number of pages:</label>
         <input type="number" id="pages" placeholder="896">
@@ -46,13 +47,21 @@
         <label for="read">I have already read this book</label>
         <input type="checkbox" id="read" name="read">
 
-        <label for="rating">Rating:</label>
-        <div class="slider-container">
-            <!-- * Add labels to each slider range value -->
-            <input type="range" min="0" max="5" value="3" step = "1" class="slider" id="rating">
+        <!-- * Only make this section appear if the users checks the "read" checkbox -->
+        <div class="review">
+            <label for="rating">Rating:</label>
+            <div class="slider-container">
+                <!-- * Add labels to each slider range value -->
+                <input type="range" min="0" max="5" value="3" step = "1" class="slider" id="rating">
+            </div>
+
+            <label for="review-text">Your review:</label>
+            <div class="review-text">
+                <textarea id="review-text" placeholder="What did you think of the book?" minlength="5" maxlength="200"></textarea>
+            </div>
         </div>
 
-        <button type="button">Add book</button>
+        <button type="submit">Add book</button>
         <button type="reset">Reset info</button>
     </form>
 </body>
