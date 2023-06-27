@@ -1,0 +1,39 @@
+
+
+
+.add-book-pop-up {
+    position: fixed;
+    box-sizing: border-box;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    background-color: grey;
+    text-align: center;
+    transition: 0.2s ease-in-out;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.add-book-pop-up.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#add-book-form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+.review {
+    display: none;  /* hidden by default */
+
+}
+
+.review.active {
+    display: block;
+
+}
+
+/* For the .rating div, position the #value p to the right of the #rating input */
