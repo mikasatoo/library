@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <!-- Pop-up form -->
+    <!-- "Add book" form -->
     <div class="add-book-pop-up">
         <form action="#" id="add-book-form">
             <h2>&#128214; Add new book</h2>
@@ -102,15 +102,17 @@
             </div>
             
             <div class="read">
-                <label for="read">I have already read this book</label>
+                <label for="read">Have you read this book?</label>
                 <input type="checkbox" id="read" name="read">
             </div>
             
             <div class="review">
                 <div class="rating">
-                    <label for="rating">How would you rate it?</label>
-                    <input type="range" id="rating" min="0" max="5" step="1" value="3" oninput="value.innerText = this.value">
-                    <p id="value">3</p>
+                    <label for="rating-slider">How would you rate it?</label>
+                    <div class="rating-value">
+                        <input type="range" id="rating-slider" min="0" max="5" step="1" value="3">
+                        <p id="rating-value"></p>
+                    </div>
                 </div>
                 
                 <div class="review-text">
@@ -122,10 +124,13 @@
             </div>
 
             <div class="buttons">
-                <button type="submit">Add book</button>
-                <button type="reset">Reset info</button>
+                <button type="submit" id="add-book-form-btn">Add book</button>
+                <button type="reset" id="reset-btn">Reset info</button>
             </div>
         </form>
     </div>
+
+    <!-- Overlay effect -->
+    <div id="overlay"></div>
 </body>
 </html>

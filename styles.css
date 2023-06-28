@@ -1,5 +1,5 @@
 body {
-    font-family: 'Courier New', Arial;  /* !!! change font */
+    font-family: Verdana, Helvetica, Arial;
     margin: 0;
 }
 
@@ -7,6 +7,7 @@ body {
 
 :root {
     --off-black: #1f1f1f;
+    --black-opaque: rgba(0,0,0,0.5);
     --off-white: #f5f5f5;
     --light-grey: #dcdcdc;
     --mid-grey: #bfc1c2;
@@ -77,17 +78,22 @@ button {
     box-sizing: border-box;
     padding: 10px;
     width: 180px;
-    font-family: 'Courier New', Arial;  /* !!! change font */
+    font-family: Verdana, Helvetica, Arial;
     font-size: 16px;
     background-color: var(--pale-green);
     color: var(--black);
     border: solid var(--black);
+    border-width: 1px;
     border-radius: 10px;
     
     &&:hover {
-        transition-duration: 250ms;
+        /* transition-duration: 250ms;
         cursor: pointer;
-        transform: scale(1.1);
+        transform: scale(1.1); */
+
+        transition: all 0.5s ease-out;
+        cursor: pointer;
+        filter: brightness(85%);
     }
 }
 
@@ -127,7 +133,8 @@ button {
     font-weight: bold;
 }
 
-/* !!! add .gallery styles*/
+/* !!! add .gallery styles - use Grid? */
+/* !!! add .gallery .card styles too */
 
 
 
@@ -162,19 +169,40 @@ button {
 }
 
 
-/* !!!!! Pop-up form */
+/* Overlay */
+
+#overlay {
+    position: fixed;    /* sit on top of the page content */
+    display: none;  /* hidden by default */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--black-opaque);
+    z-index: 1;
+}
+
+#overlay.active {
+    display: block;
+}
+
+
+/* "Add book" pop-up and form */
 
 .add-book-pop-up {
     position: fixed;
     box-sizing: border-box;
-    z-index: 1;
+    z-index: 2;     /* higher stack order to sit on top of overlay */
     top: 50%;
     left: 50%;
-    width: 300px;
-    background-color: grey;
+    width: 70%;
+    max-width: 300px;
+    min-width: 200px;
+    background-color: var(--white);
     text-align: center;
     transition: 0.2s ease-in-out;
     transform: translate(-50%, -50%) scale(0);
+    border-radius: 20px;
 }
 
 .add-book-pop-up.active {
@@ -184,18 +212,103 @@ button {
 #add-book-form {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+    gap: 10px;
+    font-size: 16px;
 }
 
-.review {
-    display: none;  /* hidden by default */
-
+h2 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+    text-align: center;
 }
 
-.review.active {
-    display: block;
-
+#add-book-form .title,
+#add-book-form .author,
+#add-book-form .image-url,
+#add-book-form .pages,
+#add-book-form .genres {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
 }
 
-/* !!! For the .rating div, position the #value p to the right of the #rating input */
-/* !!! Make it so that the rest of the page goes out of focus when the form is active and if you click outside of it, the form closes ??? */
+#add-book-form .genres select:hover {
+    cursor: pointer;
+}
+
+#add-book-form .read {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-book-form .read input {
+    height: 15px;
+    width: 15px;
+
+    &&:hover {
+        cursor: pointer;
+    }
+}
+
+#add-book-form .review {
+    display: none;
+}
+
+#add-book-form .review.active {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#add-book-form .review .rating,
+#add-book-form .review .review-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+input#rating-slider:hover {
+    cursor: pointer;
+}
+
+#add-book-form .review .rating-value {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 30px;
+}
+
+p {
+    margin: 0;
+}
+
+#add-book-form .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#add-book-form .buttons button {
+    width: 110px;
+}
+
+#add-book-form .buttons #add-book-form-btn {
+    background-color: var(--pale-blue);
+}
+
+#add-book-form .buttons #reset-btn {
+    background-color: var(--pale-red);
+}
