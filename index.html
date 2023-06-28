@@ -11,33 +11,46 @@
 </head>
 
 <body>
-    <!-- ***** Header -->
-    <div class="header">
-        <h1>My library</h1>
-        <!-- ... -->
-    </div>
+    <div class="page-container">
+        <div class="content-wrap">
+            <!-- Header -->
+            <div class="header">
+                <h1>&#x1F4DA; My library</h1>
+            </div>
 
-    <!-- ***** Library display -->
-    <div class="library">
-        <button type="button" id="add-book-btn">+ Add new book</button>
+            <!-- Library display -->
+            <div class="library">
+                <div class="library-header">
+                    <button type="button" id="add-book-btn">+ Add new book</button>
 
-        <div class="summary">
-            <h2>Summary</h2>
-            <!-- ... -->
+                    <div class="summary-info">
+                        <div id="total-books">
+                            <div><b>Total books: </b></div>
+                            <div id="total-books-value"></div>
+                        </div>
+    
+                        <div id="read-books">
+                            <div><b>Books read: </b></div>
+                            <div id="read-books-value"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery"></div>
+            </div>
         </div>
 
-        <div class="gallery"></div>
+        <!-- Footer -->
+        <div class="footer">
+            <p>Copyright © 2023 mikasatoo</p>
+            <a href="https://github.com/mikasatoo" target="_blank"><i style="font-size:24px" class="fa">&#xf09b;</i></a>
+        </div>
     </div>
 
-    <!-- ***** Footer -->
-    <div class="footer">
-        <!-- ... -->
-    </div>
-
-    <!-- "Add new book" pop-up form -->
+    <!-- Pop-up form -->
     <div class="add-book-pop-up">
         <form action="#" id="add-book-form">
-            <h2>Add new book</h2>
+            <h2>&#128214; Add new book</h2>
             
             <div class="title">
                 <label for="title">*Title:</label>

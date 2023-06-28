@@ -37,6 +37,12 @@ const addBookBtn = document.getElementById("add-book-btn");
 const addBookPopUp = document.querySelector(".add-book-pop-up");
 const readCheckBox = document.getElementById("read");
 const review = document.querySelector(".review");
+const totalBooks = document.getElementById("total-books-value");
+const readBooks = document.getElementById("read-books-value");
+
+// Global variables
+let totalBooksValue = 0;
+let readBooksValue = 0;
 
 // Function to add event listener (click) to addBookBtn to make addBookPopUp appear
 function makeAddBookAppear() {
@@ -60,7 +66,7 @@ function makeReviewAppear() {
 function displayBooks() {
     myLibrary.forEach((book) => {
         // ...
-    })
+    }) 
 };
 
 
@@ -68,3 +74,5 @@ function displayBooks() {
 // Initialization
 makeAddBookAppear();
 makeReviewAppear();
+totalBooks.textContent = totalBooksValue;   // ***** might need to reconsider setting these to zero initially?
+readBooks.textContent = readBooksValue;

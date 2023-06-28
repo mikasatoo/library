@@ -1,5 +1,168 @@
+body {
+    font-family: 'Courier New', Arial;  /* !!! change font */
+    margin: 0;
+}
+
+/* Colour variables */
+
+:root {
+    --off-black: #1f1f1f;
+    --off-white: #f5f5f5;
+    --light-grey: #dcdcdc;
+    --mid-grey: #bfc1c2;
+    --grey: #a5a5a8;
+    --dark-grey: #555555;
+    --white: white;
+    --black: black;
+    --pale-blue: rgb(175, 224, 249);
+    --mid-blue: #a2d2ff;
+    --blue: #0492c2;
+    --peach: #ffc09f;
+    --pale-red: rgb(255, 170, 170);
+    --red: #fe4d4d;
+    --pale-green: #b8e0d2;
+    --mid-green: #afe1af;
+    --green: #03c04a;
+    --pale-yellow: palegoldenrod;
+}
+
+.page-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrap {
+    padding-bottom: 80px;
+    background-color: var(--white);
+    flex: 1;
+}
 
 
+/* Header */
+.header {
+    background-color: var(--mid-blue);
+    color: var(--black);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 20px;
+    min-height: 80px;
+    width: 100%;
+    min-width: 200px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 36px;
+}
+
+
+/* Library display */
+.library {
+    display: flex;
+    flex-direction: column;
+    color: var(--black);
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 200px;
+    padding: 20px;
+}
+
+button {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 180px;
+    font-family: 'Courier New', Arial;  /* !!! change font */
+    font-size: 16px;
+    background-color: var(--pale-green);
+    color: var(--black);
+    border: solid var(--black);
+    border-radius: 10px;
+    
+    &&:hover {
+        transition-duration: 250ms;
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+.library-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+.library-header .summary-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 10px;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.summary-info #total-books,
+.summary-info #read-books {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.summary-info #total-books #total-books-value,
+.summary-info #read-books #read-books-value {
+    color: var(--blue);
+    font-weight: bold;
+}
+
+/* !!! add .gallery styles*/
+
+
+
+/* Footer */
+.footer {
+    background-color: var(--pale-yellow);
+    color: var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+    min-height: 80px;
+    width: 100%;
+    min-width: 200px;
+    font-size: 16px;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer a {
+    color: var(--black);
+    margin-left: 10px;    
+
+    &&:hover {
+        transition-duration: 250ms;
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
+
+/* !!!!! Pop-up form */
 
 .add-book-pop-up {
     position: fixed;
@@ -24,8 +187,6 @@
 
 }
 
-
-
 .review {
     display: none;  /* hidden by default */
 
@@ -36,4 +197,5 @@
 
 }
 
-/* For the .rating div, position the #value p to the right of the #rating input */
+/* !!! For the .rating div, position the #value p to the right of the #rating input */
+/* !!! Make it so that the rest of the page goes out of focus when the form is active and if you click outside of it, the form closes ??? */
