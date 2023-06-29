@@ -230,7 +230,7 @@ h2 {
 
 #add-book-form .title,
 #add-book-form .author,
-#add-book-form .image-url,
+#add-book-form .image-link,
 #add-book-form .pages,
 #add-book-form .genres {
     display: flex;
