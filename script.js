@@ -16,15 +16,17 @@ function Book(title, author, link, pages, read, rating, review, ...genres) {
 Book.prototype.getGenres = function() {
     let bookGenres = "";
 
-    if (genres[0] !== "") {
-        bookGenres = genres[0];
+    if (this.genres[0] !== "") {
+        bookGenres = this.genres[0];
     };
 
-    if (genres.length > 1) {
-        for (let i = 1; i < genres.length; i++) {
-            bookGenres += ", " + genres[i];
+    if (this.genres.length > 1) {
+        for (let i = 1; i < this.genres.length; i++) {
+            bookGenres += ", " + this.genres[i];
         };
     };
+
+    return bookGenres;
 };
 
 // References to HTML elements
@@ -32,6 +34,7 @@ const overlay = document.getElementById("overlay");
 const addBookPopUp = document.querySelector(".add-book-pop-up");
 const totalBooks = document.getElementById("total-books-value");
 const readBooks = document.getElementById("read-books-value");
+const gallery = document.querySelector(".gallery");
 
 const form = document.getElementById("add-book-form");
 const title = document.getElementById("title");
@@ -50,11 +53,13 @@ const resetBtn = document.getElementById("reset-btn");
 
 // Global variables
 let totalBooksValue = myLibrary.length;
-let readBooksValue = 0;     // ***** edit this
+let readLibrary = myLibrary.filter(book => book.read == true);
+let readBooksValue = readLibrary.length;
 let rating = ratingSlider.value;
 
-// Create new book object and add to myLibrary array
+// Create new book object, add to myLibrary array, and call next functions
 function createNewBook() {
+    // ***** maybe add a check to see if the data entered is the same as an existing book card (e.g. if the title and author are the same) or don't worry?
     let selectedGenres = [];
     for (let i = 0; i < genreOptions.length; i++) {
         if (genreOptions[i].selected) {
@@ -72,9 +77,10 @@ function createNewBook() {
         reviewText.value,
         selectedGenres
     );
-    console.log(book);
-    
     myLibrary.push(book);
+
+    displayBooks();
+    updateSummary();
 };
 
 // Reset any book data in the form
@@ -95,18 +101,48 @@ function resetFormData() {
     reviewText.value = "";
 };
 
-// ***** Function to display each book on its own card
+// Display each book in myLibrary on its own card (if it does not already have a book card)
 function displayBooks() {
     myLibrary.forEach((book) => {
-        // ...
-        // use the .getGenres() function to get the bookGenres list from the genres array
+        let bookId = book.title.toLowerCase();
+
+        if (document.getElementById(bookId) === null) {
+            let bookCard = document.createElement("div");
+            bookCard.setAttribute("id", bookId);
+            bookCard.classList.add("book-card");
+            gallery.appendChild(bookCard);
+
+            let title = document.createElement("h2");
+            title.textContent = book.title;
+            bookCard.appendChild(title);
+
+            // ***** Add image from imageLink below title
+
+            let author = document.createElement("p");
+            author.textContent = `Author: ${book.author}`;
+            bookCard.appendChild(author);
+
+            let pages = document.createElement("p");
+            pages.textContent = `Page count: ${book.pages}`;
+            bookCard.appendChild(pages);
+
+            let genres = document.createElement("p");
+            genres.textContent = `Genre/s: ${book.getGenres()}`
+            bookCard.appendChild(genres);
+
+            // ***** Add read, rating, review fields - want to be able to interact with them on the card as well (similar to the form where they appear or disappear)
+        };
     });
 };
 
-// ***** Function to update summary info (totalBooksValue and readBooksValue + update textContent)
-    // need to consider books being added / removed and also being checked / unchecked as read on their cards
+// Update summary info ("Total books" and "Books read")
 function updateSummary() {
-    // ...
+    totalBooksValue = myLibrary.length;
+    readLibrary = myLibrary.filter(book => book.read == true);
+    readBooksValue = readLibrary.length;
+
+    totalBooks.textContent = totalBooksValue;
+    readBooks.textContent = readBooksValue;
 };
 
 
@@ -160,9 +196,15 @@ function changeRating() {
 // Reset any book data in the form when user clicks "Reset info" button
 resetBtn.addEventListener("click", resetFormData);
 
+// Mark books as read on their own book cards
+function markRead() {
+    // ***** change book.read to true, make the review fields show up (similar to toggleReviewFields() above), and call updateSummary()
+
+};
+
 // Remove book from library if user clicks "Remove" button on the book card
 function removeBook() {
-    // ***** delete card and also remove from myLibrary array (and update summary info)
+    // ***** delete card, remove from myLibrary array, and call updateSummary() function
 
 };
 
@@ -173,6 +215,7 @@ closeAddBookPopUp();
 submitNewBook();
 toggleReviewFields();
 changeRating();
+markRead();
 removeBook();
 
 totalBooks.textContent = totalBooksValue;
