@@ -51,6 +51,14 @@ const reviewText = document.getElementById("review-text");
 const addBookBtn = document.getElementById("add-book-btn");
 const resetBtn = document.getElementById("reset-btn");
 
+// Create remove and read/unread buttons for each book card
+let removeBtn = document.createElement("button");
+removeBtn.setAttribute("id", "remove-btn");
+removeBtn.textContent = "Remove";
+
+let readBtn = document.createElement("button");
+readBtn.setAttribute("id", "read-btn");
+
 // Global variables
 let totalBooksValue = myLibrary.length;
 let readLibrary = myLibrary.filter(book => book.read == true);
@@ -59,7 +67,7 @@ let rating = ratingSlider.value;
 
 // Create new book object, add to myLibrary array, and call next functions
 function createNewBook() {
-    // ***** maybe add a check to see if the data entered is the same as an existing book card (e.g. if the title and author are the same) or don't worry?
+    // ***** maybe add a check to see if the data entered is the same as an existing book card (e.g. if the title and author are the same, then just update other fields) or don't worry?
     let selectedGenres = [];
     for (let i = 0; i < genreOptions.length; i++) {
         if (genreOptions[i].selected) {
@@ -116,21 +124,55 @@ function displayBooks() {
             title.textContent = book.title;
             bookCard.appendChild(title);
 
-            // ***** Add image from imageLink below title
+            if (book.link !== "") {
+                let coverImage = document.createElement("img");
+                coverImage.setAttribute("src", book.link);
+                coverImage.setAttribute("alt", `Cover image of ${book.title}`);
+                bookCard.appendChild(coverImage);
+            };
 
-            let author = document.createElement("p");
-            author.textContent = `Author: ${book.author}`;
-            bookCard.appendChild(author);
+            if (book.author !== "") {
+                let author = document.createElement("p");
+                author.textContent = `Author: ${book.author}`;
+                bookCard.appendChild(author);
+            };
 
-            let pages = document.createElement("p");
-            pages.textContent = `Page count: ${book.pages}`;
-            bookCard.appendChild(pages);
+            if (book.pages !== "") {
+                let pages = document.createElement("p");
+                pages.textContent = `Page count: ${book.pages}`;
+                bookCard.appendChild(pages);
+            };
 
-            let genres = document.createElement("p");
-            genres.textContent = `Genre/s: ${book.getGenres()}`
-            bookCard.appendChild(genres);
+            if (book.genres !== "") {
+                let genres = document.createElement("p");
+                genres.textContent = `Genre/s: ${book.getGenres()}`
+                bookCard.appendChild(genres);
+            };
 
-            // ***** Add read, rating, review fields - want to be able to interact with them on the card as well (similar to the form where they appear or disappear)
+            if (book.rating !== "" || book.review !== "") {
+                let bookReview = document.createElement("div");
+                bookReview.textContent = "Review:"
+                if (book.rating !== "") {
+                    let bookReviewRating = document.createElement("p");
+                    bookReviewRating.textContent = book.rating;
+                    bookReview.appendChild(bookReviewRating);
+                };
+                if (book.review !== "") {
+                    let bookReviewText = document.createElement("p");
+                    bookReviewText.textContent = book.review;
+                    bookReview.appendChild(bookReviewText);
+                };
+                bookCard.appendChild(bookReview);
+            };
+
+            if (book.read == true) {
+                readBtn.textContent = "Read";
+            } else {
+                readBtn.textContent = "Unread";
+            };
+            bookCard.appendChild(readBtn);
+
+            bookCard.appendChild(removeBtn);
         };
     });
 };
@@ -198,14 +240,19 @@ resetBtn.addEventListener("click", resetFormData);
 
 // Mark books as read on their own book cards
 function markRead() {
-    // ***** change book.read to true, make the review fields show up (similar to toggleReviewFields() above), and call updateSummary()
-
+    readBtn.addEventListener("click", () => {
+        // ***** if readBtn.textContent is "read", change book.read to true, make the review fields show up (similar to toggleReviewFields() above)???, and call updateSummary()
+            // otherwise, do the opposite
+        
+    });
 };
 
 // Remove book from library if user clicks "Remove" button on the book card
 function removeBook() {
-    // ***** delete card, remove from myLibrary array, and call updateSummary() function
+    removeBtn.addEventListener("click", () => {
+        // ***** delete card, remove from myLibrary array, and call updateSummary() function
 
+    });
 };
 
 
