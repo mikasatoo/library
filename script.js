@@ -74,7 +74,7 @@ function createNewBook() {
             selectedGenres.push(genreOptions[i].textContent);
         };
     };
-
+    
     let book = new Book(
         title.value,
         author.value,
@@ -243,7 +243,7 @@ function markRead() {
     readBtn.addEventListener("click", () => {
         // ***** if readBtn.textContent is "read", change book.read to true, make the review fields show up (similar to toggleReviewFields() above)???, and call updateSummary()
             // otherwise, do the opposite
-        
+
     });
 };
 
