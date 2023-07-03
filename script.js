@@ -50,14 +50,8 @@ const reviewText = document.getElementById("review-text");
 
 const addBookBtn = document.getElementById("add-book-btn");
 const resetBtn = document.getElementById("reset-btn");
-
-// Create remove and read/unread buttons for each book card
-let removeBtn = document.createElement("button");
-removeBtn.setAttribute("id", "remove-btn");
-removeBtn.textContent = "Remove";
-
-let readBtn = document.createElement("button");
-readBtn.setAttribute("id", "read-btn");
+const readBtn = document.getElementById("read-btn");
+const removeBtn = document.getElementById("remove-btn");
 
 // Global variables
 let totalBooksValue = myLibrary.length;
@@ -157,13 +151,14 @@ function displayBooks() {
                 bookInfo.appendChild(genres);
             };
 
-            if (book.rating !== "" || book.review !== "") {
+            if (book.read == true && (book.rating !== "" || book.review !== "")) {
                 let bookReview = document.createElement("div");
                 bookReview.classList.add("book-review");
                 bookCard.appendChild(bookReview);
                 if (book.rating !== "") {
+                    const star = "⭐";
                     let bookReviewRating = document.createElement("p");
-                    bookReviewRating.textContent = `${book.rating} stars`;
+                    bookReviewRating.textContent = star.repeat(book.rating);
                     bookReview.appendChild(bookReviewRating);
                 };
                 if (book.review !== "") {
@@ -172,11 +167,13 @@ function displayBooks() {
                     bookReview.appendChild(bookReviewText);
                 };
             };
-
+            
             let bookButtons = document.createElement("div");
             bookButtons.classList.add("book-buttons");
             bookCard.appendChild(bookButtons);
-
+            
+            let readBtn = document.createElement("button");
+            readBtn.setAttribute("id", "read-btn");
             if (book.read == true) {
                 readBtn.textContent = "Read";
             } else {
@@ -185,6 +182,9 @@ function displayBooks() {
             };
             bookButtons.appendChild(readBtn);
 
+            let removeBtn = document.createElement("button");
+            removeBtn.setAttribute("id", "remove-btn");
+            removeBtn.textContent = "Remove";
             bookButtons.appendChild(removeBtn);
         };
     });
@@ -251,21 +251,50 @@ function changeRating() {
 // Reset any book data in the form when user clicks "Reset info" button
 resetBtn.addEventListener("click", resetFormData);
 
-// Mark books as read on their own book cards
+// Mark books as read or unread on their own book cards
 function markRead() {
-    readBtn.addEventListener("click", () => {
-        // ***** if readBtn.textContent is "read", change book.read to true, make the review fields show up (similar to toggleReviewFields() above)???, and call updateSummary()
-            // otherwise, do the opposite
-
-    });
+    if (document.getElementById("read-btn")) {
+        readBtn.addEventListener("click", function(e) {
+            let bookCardDiv = this.parentNode.parentNode;   // first parent node is bookButtons div
+            let bookCardId = bookCardDiv.getAttribute("id");
+            
+            myLibrary.forEach((book) => {
+                if (book.title.toLowerCase() === bookCardId) {
+                    if (readBtn.textContent === "Read") {   // changing from "Read" to "Unread"
+                        readBtn.textContent = "Unread";
+                        readBtn.classList.add("unread");
+                        book.read = false;
+                    } else {    // changing from "Unread" to "Read"
+                        readBtn.textContent = "Read";
+                        readBtn.classList.remove("unread");
+                        book.read = true;
+                        // ***** could also have a pop-up for adding the rating and review text ??
+                    };
+                };
+            });
+            updateSummary();
+        });
+    };
 };
 
 // Remove book from library if user clicks "Remove" button on the book card
 function removeBook() {
-    removeBtn.addEventListener("click", () => {
-        // ***** delete card, remove from myLibrary array, and call updateSummary() function
+    if (document.getElementById("remove-btn")) {
+        removeBtn.addEventListener("click", function(e) {
+            let bookCardDiv = this.parentNode.parentNode;
+            let bookCardId = bookCardDiv.getAttribute("id");
+            let galleryDiv = bookCardDiv.parentNode;
 
-    });
+            galleryDiv.removeChild(bookCardDiv);
+
+            myLibrary.forEach((book) => {
+                if (book.title.toLowerCase() === bookCardId) {
+                    myLibrary.pop(book);
+                };
+            });
+            updateSummary();
+        });
+    };
 };
 
 
