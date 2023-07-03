@@ -61,7 +61,6 @@ let rating = ratingSlider.value;
 
 // Create new book object, add to myLibrary array, and call next functions
 function createNewBook() {
-    // ***** maybe add a check to see if the data entered is the same as an existing book card (e.g. if the title and author are the same, then just update other fields) or don't worry?
     let selectedGenres = [];
     for (let i = 0; i < genreOptions.length; i++) {
         if (genreOptions[i].selected) {
@@ -222,10 +221,21 @@ function closeAddBookPopUp() {
 // Close addBookPopUp, remove overlay, and add new book (and then reset data) when user submits the form
 function submitNewBook() {
     form.addEventListener("submit", () => {
-        addBookPopUp.classList.remove("active");
-        overlay.classList.remove("active");
-        createNewBook();
-        resetFormData();
+        let isBookValid = true;
+
+        myLibrary.forEach((book) => {       // check if book already exists in myLibrary
+            if (book.title.toLowerCase() === title.value.toLowerCase()) {
+                alert("This book already exists in the library");
+                isBookValid = false;
+            };
+        });
+
+        if (isBookValid) {
+            addBookPopUp.classList.remove("active");
+            overlay.classList.remove("active");
+            createNewBook();
+            resetFormData();
+        };
     });
 };
 
@@ -251,7 +261,7 @@ function changeRating() {
 // Reset any book data in the form when user clicks "Reset info" button
 resetBtn.addEventListener("click", resetFormData);
 
-// Mark books as read or unread on their own book cards
+// !!!!! Mark books as read or unread on their own book cards
 function markRead() {
     if (document.getElementById("read-btn")) {
         readBtn.addEventListener("click", function(e) {
@@ -277,7 +287,7 @@ function markRead() {
     };
 };
 
-// Remove book from library if user clicks "Remove" button on the book card
+// !!!!! Remove book from library if user clicks "Remove" button on the book card
 function removeBook() {
     if (document.getElementById("remove-btn")) {
         removeBtn.addEventListener("click", function(e) {
