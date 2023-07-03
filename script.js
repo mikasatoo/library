@@ -17,12 +17,12 @@ Book.prototype.getGenres = function() {
     let bookGenres = "";
 
     if (this.genres[0] !== "") {
-        bookGenres = this.genres[0];
+        bookGenres = `${this.genres[0]}`;
     };
 
     if (this.genres.length > 1) {
         for (let i = 1; i < this.genres.length; i++) {
-            bookGenres += ", " + this.genres[i];
+            bookGenres += `, ${this.genres[i]}`;
         };
     };
 
@@ -120,41 +120,50 @@ function displayBooks() {
             bookCard.classList.add("book-card");
             gallery.appendChild(bookCard);
 
+            let bookKey = document.createElement("div");    // holds bookInfo and coverImage
+            bookKey.classList.add("book-key");
+            bookCard.appendChild(bookKey);
+
+            let bookInfo = document.createElement("div");
+            bookInfo.classList.add("book-info");
+            bookKey.appendChild(bookInfo);
+
             let title = document.createElement("h2");
             title.textContent = book.title;
-            bookCard.appendChild(title);
+            bookInfo.appendChild(title);
 
             if (book.link !== "") {
                 let coverImage = document.createElement("img");
                 coverImage.setAttribute("src", book.link);
                 coverImage.setAttribute("alt", `Cover image of ${book.title}`);
-                bookCard.appendChild(coverImage);
+                bookKey.appendChild(coverImage);
             };
 
             if (book.author !== "") {
                 let author = document.createElement("p");
-                author.textContent = `Author: ${book.author}`;
-                bookCard.appendChild(author);
+                author.textContent = book.author;
+                bookInfo.appendChild(author);
             };
 
             if (book.pages !== "") {
                 let pages = document.createElement("p");
-                pages.textContent = `Page count: ${book.pages}`;
-                bookCard.appendChild(pages);
+                pages.textContent = `${book.pages} pages`;
+                bookInfo.appendChild(pages);
             };
 
             if (book.genres !== "") {
                 let genres = document.createElement("p");
-                genres.textContent = `Genre/s: ${book.getGenres()}`
-                bookCard.appendChild(genres);
+                genres.textContent = book.getGenres();
+                bookInfo.appendChild(genres);
             };
 
             if (book.rating !== "" || book.review !== "") {
                 let bookReview = document.createElement("div");
-                bookReview.textContent = "Review:"
+                bookReview.classList.add("book-review");
+                bookCard.appendChild(bookReview);
                 if (book.rating !== "") {
                     let bookReviewRating = document.createElement("p");
-                    bookReviewRating.textContent = book.rating;
+                    bookReviewRating.textContent = `${book.rating} stars`;
                     bookReview.appendChild(bookReviewRating);
                 };
                 if (book.review !== "") {
@@ -162,17 +171,21 @@ function displayBooks() {
                     bookReviewText.textContent = book.review;
                     bookReview.appendChild(bookReviewText);
                 };
-                bookCard.appendChild(bookReview);
             };
+
+            let bookButtons = document.createElement("div");
+            bookButtons.classList.add("book-buttons");
+            bookCard.appendChild(bookButtons);
 
             if (book.read == true) {
                 readBtn.textContent = "Read";
             } else {
                 readBtn.textContent = "Unread";
+                readBtn.classList.add("unread");
             };
-            bookCard.appendChild(readBtn);
+            bookButtons.appendChild(readBtn);
 
-            bookCard.appendChild(removeBtn);
+            bookButtons.appendChild(removeBtn);
         };
     });
 };

@@ -9,6 +9,7 @@ body {
     --off-black: #1f1f1f;
     --black-opaque: rgba(0,0,0,0.5);
     --off-white: #f5f5f5;
+    --pale-grey: #f0f0f0;
     --light-grey: #dcdcdc;
     --mid-grey: #bfc1c2;
     --grey: #a5a5a8;
@@ -18,6 +19,7 @@ body {
     --pale-blue: rgb(175, 224, 249);
     --mid-blue: #a2d2ff;
     --blue: #0492c2;
+    --royal-blue: #4169e1;
     --peach: #ffc09f;
     --pale-red: rgb(255, 170, 170);
     --red: #fe4d4d;
@@ -25,7 +27,10 @@ body {
     --mid-green: #afe1af;
     --green: #03c04a;
     --pale-yellow: palegoldenrod;
-    --purple: #966fd6;
+    --violet: #710193;
+    --iris: #9867c5;
+    --lilac: #865fcf;
+    --magenta: #a1045a;
 }
 
 .page-container {
@@ -37,14 +42,14 @@ body {
 
 .content-wrap {
     padding-bottom: 80px;
-    background-color: var(--white);
+    background-color: var(--pale-grey);
     flex: 1;
 }
 
 
 /* Header */
 .header {
-    background-color: var(--mid-blue);
+    background-color: var(--white);
     color: var(--black);
     box-sizing: border-box;
     display: flex;
@@ -78,10 +83,10 @@ h1 {
 button {
     box-sizing: border-box;
     padding: 10px;
-    width: 180px;
+    width: 160px;
     font-family: Verdana, Helvetica, Arial;
     font-size: 16px;
-    background-color: var(--pale-green);
+    background-color: var(--white);
     color: var(--black);
     border: solid var(--black);
     border-width: 1px;
@@ -130,18 +135,90 @@ button {
 
 .summary-info #total-books #total-books-value,
 .summary-info #read-books #read-books-value {
-    color: var(--blue);
+    color: var(--royal-blue);
     font-weight: bold;
 }
 
-/* !!! add .gallery styles - use Grid? */
-    /* and .gallery .book-card styles too */
+.gallery {
+    display: grid;  /* using CSS grid to display the book cards in the library */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-content: space-evenly;
+    justify-items: start;
+    align-content: start;
+    align-items: start;
+}
 
+.gallery .book-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    background-color: var(--white);
+    color: var(--black);
+    border-radius: 10px;
+}
+
+.book-card .book-key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.book-key .book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+    text-align: left;
+}
+
+.book-key .book-info h2 {
+    margin: 0;
+}
+
+.book-key img {
+    height: 150px;
+}
+
+.book-card .book-review {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.book-card .book-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.book-card .book-buttons button {
+    width: 100px;
+}
+
+.book-card .book-buttons #read-btn {
+    background-color: var(--pale-green);
+
+    &&.unread {
+        background-color: var(--pale-red);
+    }
+}
+
+.book-card .book-buttons #remove-btn {
+    background-color: var(--light-grey);
+}
 
 
 /* Footer */
 .footer {
-    background-color: var(--pale-yellow);
+    background-color: var(--pale-grey);
     color: var(--black);
     display: flex;
     justify-content: center;
