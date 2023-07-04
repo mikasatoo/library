@@ -197,9 +197,6 @@ function updateSummary() {
 
     totalBooks.textContent = totalBooksValue;
     readBooks.textContent = readBooksValue;
-
-    console.log(totalBooksValue);
-    console.log(myLibrary);
 };
 
 
@@ -299,11 +296,10 @@ function removeBook(btn) {
 
         myLibrary.forEach((book) => {
             if (book.title.toLowerCase() === bookCardId) {
-                console.log(book);
-                myLibrary.pop(book);
+                let bookIndex = myLibrary.indexOf(book);
+                myLibrary.splice(bookIndex, 1);
             };
         });
-        console.log(myLibrary);
         updateSummary();
     });
 };

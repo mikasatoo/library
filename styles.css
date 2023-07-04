@@ -141,7 +141,8 @@ button {
 
 .gallery {
     display: grid;  /* using CSS grid to display the book cards in the library */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 300px)); */
+    grid-template-columns: repeat(auto-fit, 250px);
     column-gap: 20px;
     row-gap: 20px;
     justify-content: flex-start;
@@ -159,6 +160,7 @@ button {
     background-color: var(--white);
     color: var(--black);
     border-radius: 10px;
+    width: 250px;
 }
 
 .book-card .book-key {
@@ -178,10 +180,11 @@ button {
 
 .book-key .book-info h2 {
     margin: 0;
+    font-size: 20px;
 }
 
 .book-key img {
-    height: 150px;
+    width: 80px;
 }
 
 .book-card .book-review {
