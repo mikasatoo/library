@@ -50,8 +50,6 @@ const reviewText = document.getElementById("review-text");
 
 const addBookBtn = document.getElementById("add-book-btn");
 const resetBtn = document.getElementById("reset-btn");
-const readButtons = [];
-const removeButtons = [];
 
 // Global variables
 let totalBooksValue = myLibrary.length;
@@ -180,17 +178,13 @@ function displayBooks() {
                 readBtn.classList.add("unread");
             };
             bookButtons.appendChild(readBtn);
-            readButtons.push(readBtn);  // add to readButtons array
-            console.log(readButtons);
-            markRead();     // call this function to add event listener to readButtons
+            markRead(readBtn);     // call this function to add event listener to readBtn
             
             let removeBtn = document.createElement("button");
             removeBtn.setAttribute("id", "remove-btn");
             removeBtn.textContent = "Remove";
             bookButtons.appendChild(removeBtn);
-            removeButtons.push(removeBtn);
-            console.log(removeButtons);
-            removeBook();
+            removeBook(removeBtn);
         };
     });
 };
@@ -203,6 +197,9 @@ function updateSummary() {
 
     totalBooks.textContent = totalBooksValue;
     readBooks.textContent = readBooksValue;
+
+    console.log(totalBooksValue);
+    console.log(myLibrary);
 };
 
 
@@ -268,52 +265,46 @@ function changeRating() {
 resetBtn.addEventListener("click", resetFormData);
 
 // Mark books as read or unread on their own book cards
-function markRead() {
-    readButtons.forEach((readBtn) => {
-        readBtn.addEventListener("click", () => {
-            let bookCardDiv = readBtn.parentNode.parentNode;   // first parent node is bookButtons div
-            let bookCardId = bookCardDiv.getAttribute("id");
-            
-            myLibrary.forEach((book) => {
-                if (book.title.toLowerCase() === bookCardId) {
-                    if (readBtn.textContent === "Read") {   // changing from "Read" to "Unread"
-                        readBtn.textContent = "Unread";
-                        readBtn.classList.add("unread");
-                        book.read = false;
-                        console.log({unread: book});
-                    } else {    // changing from "Unread" to "Read"
-                        readBtn.textContent = "Read";
-                        readBtn.classList.remove("unread");
-                        book.read = true;
-                        console.log({read: book});
-                        // ***** could also have a pop-up for adding the rating and review text ??
-                    };
+function markRead(btn) {
+    btn.addEventListener("click", () => {
+        let bookCardDiv = btn.parentNode.parentNode;   // first parent node is bookButtons div
+        let bookCardId = bookCardDiv.getAttribute("id");
+        
+        myLibrary.forEach((book) => {
+            if (book.title.toLowerCase() === bookCardId) {
+                if (btn.textContent === "Read") {   // changing from "Read" to "Unread"
+                    btn.textContent = "Unread";
+                    btn.classList.add("unread");
+                    book.read = false;
+                } else {    // changing from "Unread" to "Read"
+                    btn.textContent = "Read";
+                    btn.classList.remove("unread");
+                    book.read = true;
+                    // ***** could also have a pop-up for adding the rating and review text ??
                 };
-            });
-            updateSummary();
+            };
         });
+        updateSummary();
     });
 };
 
 // Remove book from library
-function removeBook() {
-    removeButtons.forEach((removeBtn) => {
-        removeBtn.addEventListener("click", () => {
-            let bookCardDiv = removeBtn.parentNode.parentNode;
-            let bookCardId = bookCardDiv.getAttribute("id");
-            let galleryDiv = bookCardDiv.parentNode;
+function removeBook(btn) {
+    btn.addEventListener("click", () => {
+        let bookCardDiv = btn.parentNode.parentNode;
+        let bookCardId = bookCardDiv.getAttribute("id");
+        let galleryDiv = bookCardDiv.parentNode;
 
-            console.log(galleryDiv);
-            if (galleryDiv !== null) galleryDiv.removeChild(bookCardDiv);
+        if (galleryDiv !== null) galleryDiv.removeChild(bookCardDiv);
 
-            myLibrary.forEach((book) => {
-                if (book.title.toLowerCase() === bookCardId) {
-                    myLibrary.pop(book);
-                };
-            });
-            updateSummary();
-            removeButtons.pop(removeBtn);
+        myLibrary.forEach((book) => {
+            if (book.title.toLowerCase() === bookCardId) {
+                console.log(book);
+                myLibrary.pop(book);
+            };
         });
+        console.log(myLibrary);
+        updateSummary();
     });
 };
 
