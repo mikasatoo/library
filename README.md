@@ -1,6 +1,6 @@
 # 📚 Library
 
-Library created with HTML, CSS, and JavaScript
+Library created with HTML, CSS, and JavaScript (primarily to practice using object constructors and forms).
 
 Live preview: http://mikasatoo.github.io/library
 
