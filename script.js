@@ -1,33 +1,35 @@
 // "myLibrary" array
 let myLibrary = [];
 
-// "Book" object constructor
-function Book(title, author, link, pages, read, rating, review, ...genres) {
-  this.title = title
-  this.author = author
-  this.link = link
-  this.pages = pages
-  this.read = read
-  this.rating = rating
-  this.review = review
-  this.genres = [...genres]
-};
+// "Book" class
+class Book {
+    constructor(title, author, link, pages, read, rating, review, ...genres) {
+        this.title = title;
+        this.author = author;
+        this.link = link;
+        this.pages = pages;
+        this.read = read;
+        this.rating = rating;
+        this.review = review;
+        this.genres = [...genres];
+    }
 
-Book.prototype.getGenres = function() {
-    let bookGenres = "";
+    getGenres() {
+        let bookGenres = "";
 
-    if (this.genres[0] !== "") {
-        bookGenres = `${this.genres[0]}`;
-    };
-
-    if (this.genres.length > 1) {
-        for (let i = 1; i < this.genres.length; i++) {
-            bookGenres += `, ${this.genres[i]}`;
+        if (this.genres[0] !== "") {
+            bookGenres = `${this.genres[0]}`;
         };
-    };
 
-    return bookGenres;
-};
+        if (this.genres.length > 1) {
+            for (let i = 1; i < this.genres.length; i++) {
+                bookGenres += `, ${this.genres[i]}`;
+            };
+        };
+
+        return bookGenres;
+    }
+}
 
 // References to HTML elements
 const overlay = document.getElementById("overlay");
